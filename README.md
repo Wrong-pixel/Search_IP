@@ -40,11 +40,11 @@
 
 配置完成后运行`python3 MainPage.py`即可，输入IP进行查询
 
-![image-20220529093656911](README.assets/image-20220529093656911.png)
+![image](README.assets/image-20220529093656911.png)
 
 查询结果：
 
-![image-20220529093721418](README.assets/image-20220529093721418.png)
+![image](README.assets/image-20220529093721418.png)
 
 # 打包
 
