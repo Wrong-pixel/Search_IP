@@ -1,8 +1,10 @@
 # 为了快速查询企业内的IP归属，基于Tkinter+ttk主题开发的GUI工具
 
 # 使用方法：
+首先需要安装依赖：
+`pip(3) install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple/`
 
-首先需要在database.json中录入企业IP归属，可根据现有台账录入，格式如下：
+然后需要在database.json中录入企业IP归属，可根据现有台账录入，格式如下：
 
 ```json
 {
