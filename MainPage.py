@@ -7,8 +7,10 @@ import json
 
 
 class ip_handle:
-    def __init__(self, json_file, result_IP_Data={}):
+    def __init__(self, json_file, result_IP_Data=None):
         # 这里可以放在json_Load_IP方法中定义
+        if result_IP_Data is None:
+            result_IP_Data = {}
         self.result_IP_Data = result_IP_Data
         # 实例化时需要传入json文件名，实际上也可以放在json_Load_IP方法中去定义
         self.json_file = json_file
@@ -30,7 +32,7 @@ class ip_handle:
                 pass
         return self.result_IP_Data
 
-    # 输入IP合法性娇艳
+    # 输入IP合法性校验
     def check_ip(self, ipAddr):
         compile_ip = re.compile(
             '^(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|[1-9])\.(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|\d)\.(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|\d)\.(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|\d)$'
@@ -44,8 +46,8 @@ class ip_handle:
     def search_ip(self, ipaddr):
         if self.check_ip(ipaddr):
             try:
-                for key in self.result_IP_Data:
-                    for item in self.result_IP_Data[key]:
+                for key, value in self.result_IP_Data.items():
+                    for item in value:
                         if ipaddress.ip_address(ipaddr) in item:
                             return True, key
                 return False, None
