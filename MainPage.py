@@ -1,9 +1,8 @@
-import tkinter as tk
-from tkinter import ttk
-import sv_ttk
-import re
-import ipaddress
-import json
+from tkinter import Tk, ttk, StringVar
+from sv_ttk import set_theme
+from re import compile
+from ipaddress import ip_network, ip_address
+from json import loads
 
 
 class ip_handle:
@@ -20,13 +19,13 @@ class ip_handle:
     def json_Load_IP(self):
         # 读文件
         with open("./database.json", encoding='utf-8') as f:
-            ip_data = json.loads(f.read())['children']
+            ip_data = loads(f.read())['children']
         # 将ip段转化为ipaddress.ip_network对象
         for item in ip_data:
             temp_data = []
             try:
                 for ips in item["networks"]:
-                    temp_data.append(ipaddress.ip_network(ips, False))
+                    temp_data.append(ip_network(ips, False))
                 self.result_IP_Data.update({item["name"]: temp_data})
             except ValueError:
                 pass
@@ -34,7 +33,7 @@ class ip_handle:
 
     # 输入IP合法性校验
     def check_ip(self, ipAddr):
-        compile_ip = re.compile(
+        compile_ip = compile(
             '^(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|[1-9])\.(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|\d)\.(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|\d)\.(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|\d)$'
         )
         if compile_ip.match(ipAddr):
@@ -48,7 +47,7 @@ class ip_handle:
             try:
                 for key, value in self.result_IP_Data.items():
                     for item in value:
-                        if ipaddress.ip_address(ipaddr) in item:
+                        if ip_address(ipaddr) in item:
                             return True, key
                 return False, None
             except BaseException:
@@ -69,7 +68,7 @@ class App(ttk.Frame):
             self.rowconfigure(index=index, weight=1)
 
     def setup_widgets(self):
-        self.result = tk.StringVar()
+        self.result = StringVar()
         self.tip_label = ttk.Label(
             self.tk_module,
             text="IP:",
@@ -118,13 +117,13 @@ class App(ttk.Frame):
 
 
 if __name__ == '__main__':
-    root = tk.Tk()
+    root = Tk()
     root.title("IP归属查询工具_v1.0")
     # 处理IP数据
     ip_module = ip_handle("./database.json")
 
     # 设置主题
-    sv_ttk.set_theme("light")
+    set_theme("light")
 
     # 设置窗体
     root.geometry('285x75+{}+{}'.format(
