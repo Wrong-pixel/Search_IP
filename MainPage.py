@@ -19,7 +19,7 @@ class ip_handle:
     def json_Load_IP(self):
         # 读文件
         with open("./database.json", encoding='utf-8') as f:
-            ip_data = loads(f.read())['children']
+            ip_data = loads(f.read())['data']
         # 将ip段转化为ipaddress.ip_network对象
         for item in ip_data:
             temp_data = []
