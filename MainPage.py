@@ -100,7 +100,7 @@ class App(ttk.Frame):
 
         self.copyright_label = ttk.Label(
             self.tk_module,
-            text="Powered by BigBigBan v1.0",
+            text="Powered by BigBigBan v1.1",
         )
         self.copyright_label.grid(row=2, column=0, columnspan=3, sticky="SE")
 
@@ -118,7 +118,7 @@ class App(ttk.Frame):
 
 if __name__ == '__main__':
     root = Tk()
-    root.title("IP归属查询工具_v1.0")
+    root.title("IP归属查询工具_v1.1")
     # 处理IP数据
     ip_module = ip_handle("./database.json")
 
